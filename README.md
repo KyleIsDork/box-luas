@@ -30,7 +30,7 @@ Follow these steps to set up the system:
 ### Setup
 2. **Create an `autoload.lua` file** in the same directory as your scripts:
    - If you're using Sandboxie+, you can use the following repository as a reference:
-     [**autoload.lua**](lua/mboxsetup/autoload.lua)
+     [**autoexec.lua**](lua/mboxsetup/autoexec.lua)
    - Preloading allows `os.getenv('localappdata')` to find the appropriate directory locations for the multibox script.
 
 3. **Compatibility**:
