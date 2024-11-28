@@ -1,5 +1,4 @@
 -- from forums, somewhere
---autoexec.lua
 --place in C:\%userprofile%\AppData\Local
 --local path = os.getenv('localappdata')
 --LoadScript(path .. [[\ammo.lua ]])
