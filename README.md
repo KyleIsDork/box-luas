@@ -24,6 +24,9 @@ Follow these steps to set up the system:
   
   These are typically installed to the `%localappdata%` directory.
 
+  *Optional but recommended:* [**ghost_upgrades.vpk**](ghost_upgrades.vpk)
+
+
 ### Setup
 2. **Create an `autoload.lua` file** in the same directory as your scripts:
    - If you're using Sandboxie+, you can use the following repository as a reference:
