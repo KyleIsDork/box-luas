@@ -1495,8 +1495,6 @@ local function DisplayHelpPage(page, useRespond)
         return string.format("[H:%d] %s", page, message)
     end
 
-
-
     -- Add messages for page 1
     if page == 1 then
         table.insert(messages, string.format("Responding Help Page %d/12.", page))
@@ -1608,7 +1606,7 @@ local function DisplayHelpPage(page, useRespond)
         table.insert(messages, formatHelpMessage(page, "!taunt <ID> - Bot will execute a taunt. No Arguments."))
         table.insert(messages,
             formatHelpMessage(page,
-                "!tauntn <ID> [tname] - Bot will execute a taunt by name. Example: \"!tauntn Taunt: The Schadenfreude\"."))
+                "!tauntn <ID> [tname] - Bot will execute a taunt by name. Example: \"!tauntn 4 Taunt: The Schadenfreude\"."))
         table.insert(messages, formatHelpMessage(page, "!spin <ID> [1|0] - Toggle anti-aim. Arguments: on/off or 1/0."))
         table.insert(messages,
             formatHelpMessage(page, "!duck <ID> [1|0] - Toggle ducking & duck speed. Arguments: on/off or 1/0."))
