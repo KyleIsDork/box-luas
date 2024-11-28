@@ -1327,12 +1327,6 @@ local function MonitorCurrency()
             Respond("Currency spent for SniperBuyBot (hit 400 threshold): " .. currency)
             return true
         end
-        -- Check if we started with less than required (9500)
-        if currency < 9500 then
-            print("Initial currency too low for SniperBuyBot (less than 9500): " .. currency)
-            Respond("Initial currency too low for SniperBuyBot (less than 9500): " .. currency)
-            return true
-        end
     end
     return false
 end
