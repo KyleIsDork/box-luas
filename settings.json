@@ -1,0 +1,12 @@
+// Add to VSCODE to allow region folding with https://marketplace.visualstudio.com/items?itemName=maptz.regionfolder
+{
+"maptz.regionfolder": {
+        // From https://github.com/trixnz/vscode-lua/issues/25
+        "[lua]": { // Language
+            "foldEnd": "--endregion",
+            "foldEndRegex": "[\\s]*--endregion",
+            "foldStart": "--region [NAME]",
+            "foldStartRegex": "[\\s]*--region[\\s]*(.*)"
+        }
+    }
+}
