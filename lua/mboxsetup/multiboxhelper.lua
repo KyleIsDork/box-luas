@@ -1426,6 +1426,78 @@ local function SniperBuyBot(args)
     end
 end
 
+-- Enable or disable LBox native AutoReady feature
+local function toggleAutoReady(args)
+    -- If the user provided an argument, use it to set the value explicitly
+    if args and #args > 0 then
+        local inputValue = tonumber(args[1])
+        if inputValue ~= nil and (inputValue == 0 or inputValue == 1) then
+            gui.SetValue("mvm auto ready (F4)", inputValue)
+            local state = (inputValue == 1) and "enabled" or "disabled"
+            Respond("Auto Ready has been " .. state .. ".")
+            return
+        else
+            Respond("Invalid input. Use 1 to enable or 0 to disable Auto Ready.")
+            return
+        end
+    end
+
+    -- If no argument is provided, toggle the current state
+    local currentValue = gui.GetValue("mvm auto ready (F4)")
+    if currentValue == nil then
+        Respond("Unable to retrieve the current auto-ready value.")
+        return
+    end
+
+    local newValue = (currentValue == 1) and 0 or 1
+    gui.SetValue("mvm auto ready (F4)", newValue)
+    local state = (newValue == 1) and "enabled" or "disabled"
+    Respond("Auto Ready has been " .. state .. ".")
+end
+
+local mvmReviveEnabled = false -- Track the state of MVM revives
+
+local function toggleMVMRevives(args)
+    -- Check if the user provided an argument
+    if args and #args > 0 then
+        local inputValue = tonumber(args[1])
+        if inputValue ~= nil and (inputValue == 0 or inputValue == 1) then
+            mvmReviveEnabled = (inputValue == 1)
+            local state = mvmReviveEnabled and "true" or "false"
+            Respond("MVM Instant Revives have been set to " .. state .. ".")
+            return
+        else
+            Respond("Invalid input. Use 1 to enable or 0 to disable MVM Instant Revives.")
+            return
+        end
+    end
+
+    -- Default response if no arguments are passed
+    Respond("Usage: !togglerevives <ID> <0|1>")
+end
+
+-- Hook into player death event to apply revive logic
+callbacks.Register("FireGameEvent", "PlayerDeathMVMRevives", function(event)
+    if event:GetName() == "player_death" and mvmReviveEnabled then
+        print("Player " .. event:GetString("userid") .. " has died.")
+        local me = entities.GetLocalPlayer()
+        if me and me:IsAlive() then
+            -- Send KeyValues to handle revive logic
+            local kv = [[
+                "MVM_Revive_Response"
+                {
+                    "accepted" "1"
+                }
+            ]]
+            engine.SendKeyValues(kv)
+            local playerIndex = entities.GetLocalPlayer():GetIndex();
+            local playerInfo = client.GetPlayerInfo(playerIndex);
+            local name = playerInfo.Name;
+        end
+    end
+end)
+
+
 -- Basic Help, prints to console or responds in party chat.
 
 --region Later convert to a table of tables for cleaner code.
@@ -2083,6 +2155,13 @@ local function Initialize()
             Respond("You have collected " .. money .. " MVM currency.")
         end
     end)
+
+    -- Command to toggle auto-ready
+    RegisterCommand("autoready", toggleAutoReady)
+
+    -- Command to toggle MVM Revives
+    RegisterCommand("togglerevives", toggleMVMRevives)
+
     --endregion
 
     --region Draw UI from vacbux
